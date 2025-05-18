@@ -16,8 +16,8 @@ class BuildDetails {
 
     init() {
         guard let url = Bundle.main.url(forResource: "BuildDetails", withExtension: ".plist"),
-           let data = try? Data(contentsOf: url),
-           let parsed = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else
+              let data = try? Data(contentsOf: url),
+              let parsed = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else
         {
             dict = [:]
             return
