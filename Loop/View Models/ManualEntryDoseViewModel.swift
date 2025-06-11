@@ -30,8 +30,6 @@ protocol ManualDoseViewModelDelegate: AnyObject {
 
     func addManuallyEnteredDose(startDate: Date, units: Double, insulinType: InsulinType?) async
     func insulinModel(for type: InsulinType?) -> InsulinModel
-
-    func fetchData(for baseTime: Date, disablingPreMeal: Bool, ensureDosingCoverageStart: Date?) async throws -> StoredDataAlgorithmInput
 }
 
 @MainActor
@@ -229,11 +227,7 @@ final class ManualEntryDoseViewModel: ObservableObject {
             return
         }
 
-        let displayState = await delegate.algorithmDisplayState
-        self.activeInsulin = displayState.activeInsulin?.quantity
-        self.activeCarbs = displayState.activeCarbs?.quantity
-
-        let startDate = now()
+        let state = await delegate.algorithmDisplayState
 
         let insulinModel = delegate.insulinModel(for: selectedInsulinType)
 
@@ -245,15 +239,21 @@ final class ManualEntryDoseViewModel: ObservableObject {
             insulinModel: insulinModel
         )
 
-        do {
-            let input = try await delegate.fetchData(for: startDate, disablingPreMeal: false, ensureDosingCoverageStart: nil)
+        self.activeInsulin = state.activeInsulin?.quantity
+        self.activeCarbs = state.activeCarbs?.quantity
 
+
+        if let input = state.input {
             self.glucoseValues = input.glucoseHistory
 
-            predictedGlucoseValues = try input
-                .addingDose(dose: enteredBolusDose)
-                .predictGlucose()
-        } catch {
+            do {
+                predictedGlucoseValues = try input
+                    .addingDose(dose: enteredBolusDose)
+                    .predictGlucose()
+            } catch {
+                predictedGlucoseValues = []
+            }
+        } else {
             predictedGlucoseValues = []
         }
 
