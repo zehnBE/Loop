@@ -13,5 +13,13 @@ struct LoopWidgets: WidgetBundle {
     @WidgetBundleBuilder
     var body: some Widget {
         SystemStatusWidget()
+        DosingDecisionWidget()
+        EventualBGWidget()
+        ActiveInsulinWidget()
+        ActiveCarbohydratesWidget()
+        DeepLinkWidget(destination: .carbEntry)
+        DeepLinkWidget(destination: .bolus)
+        DeepLinkWidget(destination: .preMeal)
+        DeepLinkWidget(destination: .customPresets)
     }
 }

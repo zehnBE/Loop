@@ -9,6 +9,7 @@
 import HealthKit
 import UIKit
 import LoopKit
+import WidgetKit
 
 @MainActor
 final class ExtensionDataManager {
@@ -17,6 +18,8 @@ final class ExtensionDataManager {
     unowned let settingsManager: SettingsManager
     unowned let temporaryPresetsManager: TemporaryPresetsManager
     private let automaticDosingStatus: AutomaticDosingStatus
+
+    private let widgetLog = DiagnosticLog(category: "LoopWidgets")
 
     init(deviceDataManager: DeviceDataManager,
          loopDataManager: LoopDataManager,
@@ -35,7 +38,9 @@ final class ExtensionDataManager {
        
         // Wait until LoopDataManager has had a chance to initialize itself
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.update()
+            Task { @MainActor in
+                await self.update()
+            }
         }
     }
 
@@ -66,18 +71,24 @@ final class ExtensionDataManager {
     }
 
     @objc private func notificationReceived(_ notification: Notification) {
-        update()
-    }
-    
-    private func update() {
         Task { @MainActor in
-            if let context = await createStatusContext(glucoseUnit:  deviceManager.displayGlucosePreference.unit) {
-                ExtensionDataManager.context = context
-            }
+            await update()
+        }
+    }
 
-            if let info = createIntentsContext(), ExtensionDataManager.intentExtensionInfo?.overridePresetNames != info.overridePresetNames {
-                ExtensionDataManager.intentExtensionInfo = info
-            }
+    func refreshWidgets(reason: String) async {
+        self.widgetLog.default("Refreshing widget. Reason: %{public}@", reason)
+        await update()
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    func update() async {
+        if let context = await createStatusContext(glucoseUnit:  deviceManager.displayGlucosePreference.unit) {
+            ExtensionDataManager.context = context
+        }
+
+        if let info = createIntentsContext(), ExtensionDataManager.intentExtensionInfo?.overridePresetNames != info.overridePresetNames {
+            ExtensionDataManager.intentExtensionInfo = info
         }
     }
     
@@ -172,6 +183,7 @@ final class ExtensionDataManager {
         context.cgmLifecycleProgressContext = DeviceLifecycleProgressContext(from: dataManager.cgmLifecycleProgress)
 
         context.carbsOnBoard = state.activeCarbs?.value
+        context.activeInsulin = state.activeInsulin?.value
 
         return context
     }

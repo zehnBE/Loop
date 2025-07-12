@@ -251,7 +251,6 @@
 		84AA81DD2A4A2999000B658B /* StatusWidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA81DC2A4A2999000B658B /* StatusWidgetTimelineProvider.swift */; };
 		84AA81E52A4A3981000B658B /* DeeplinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA81E42A4A3981000B658B /* DeeplinkManager.swift */; };
 		84AA81E72A4A4DEF000B658B /* PumpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA81E62A4A4DEF000B658B /* PumpView.swift */; };
-		84D2879F2AC756C8007ED283 /* ContentMargin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2879E2AC756C8007ED283 /* ContentMargin.swift */; };
 		84DEB10D2C18FABA00170734 /* IOSFocusModesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEB10C2C18FABA00170734 /* IOSFocusModesView.swift */; };
 		84EC162E2C9115CA00D220C5 /* DIYLoopUnitTestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 84EC162D2C9115CA00D220C5 /* DIYLoopUnitTestPlan.xctestplan */; };
 		891B508524342BE1005DA578 /* CarbAndBolusFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B508424342BE1005DA578 /* CarbAndBolusFlowViewModel.swift */; };
@@ -415,6 +414,11 @@
 		C13255D6223E7BE2008AF50C /* BolusProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F8B1DB223862D500DD66CF /* BolusProgressTableViewCell.xib */; };
 		C138C6F82C1B8A2C00F08F1A /* GlucoseCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138C6F72C1B8A2C00F08F1A /* GlucoseCondition.swift */; };
 		C13DA2B024F6C7690098BB29 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DA2AF24F6C7690098BB29 /* UIViewController.swift */; };
+		C13DC36A2DFB4D8E008E7462 /* DosingDecisionWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DC3692DFB4D69008E7462 /* DosingDecisionWidget.swift */; };
+		C13DC36C2DFB5257008E7462 /* EventualBGWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DC36B2DFB5251008E7462 /* EventualBGWidget.swift */; };
+		C13DC36E2DFB6474008E7462 /* DeepLinkWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DC36D2DFB6470008E7462 /* DeepLinkWidget.swift */; };
+		C13DC3702DFBD6D0008E7462 /* ActiveInsulinWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DC36F2DFBD6C9008E7462 /* ActiveInsulinWidget.swift */; };
+		C13DC3722DFBDCDC008E7462 /* ActiveCarbohydratesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DC3712DFBDCD5008E7462 /* ActiveCarbohydratesWidget.swift */; };
 		C148CEE724FD91BD00711B3B /* DeliveryUncertaintyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C148CEE624FD91BD00711B3B /* DeliveryUncertaintyAlertManager.swift */; };
 		C152B9F52C9C7D4A00ACBC06 /* AutomationHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C152B9F42C9C7D4A00ACBC06 /* AutomationHistoryEntry.swift */; };
 		C152B9F72C9C7EF100ACBC06 /* AutomationHistoryEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C152B9F62C9C7EF100ACBC06 /* AutomationHistoryEntryTests.swift */; };
@@ -1349,6 +1353,11 @@
 		C13072B92A76AF31009A7C58 /* live_capture_predicted_glucose.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = live_capture_predicted_glucose.json; sourceTree = "<group>"; };
 		C138C6F72C1B8A2C00F08F1A /* GlucoseCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseCondition.swift; sourceTree = "<group>"; };
 		C13DA2AF24F6C7690098BB29 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		C13DC3692DFB4D69008E7462 /* DosingDecisionWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DosingDecisionWidget.swift; sourceTree = "<group>"; };
+		C13DC36B2DFB5251008E7462 /* EventualBGWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventualBGWidget.swift; sourceTree = "<group>"; };
+		C13DC36D2DFB6470008E7462 /* DeepLinkWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkWidget.swift; sourceTree = "<group>"; };
+		C13DC36F2DFBD6C9008E7462 /* ActiveInsulinWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveInsulinWidget.swift; sourceTree = "<group>"; };
+		C13DC3712DFBDCD5008E7462 /* ActiveCarbohydratesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCarbohydratesWidget.swift; sourceTree = "<group>"; };
 		C148CEE624FD91BD00711B3B /* DeliveryUncertaintyAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryUncertaintyAlertManager.swift; sourceTree = "<group>"; };
 		C14952142995822A0095AA84 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C152B9F42C9C7D4A00ACBC06 /* AutomationHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationHistoryEntry.swift; sourceTree = "<group>"; };
@@ -2444,7 +2453,12 @@
 		84AA81DF2A4A2B7A000B658B /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				C13DC3712DFBDCD5008E7462 /* ActiveCarbohydratesWidget.swift */,
+				C13DC36F2DFBD6C9008E7462 /* ActiveInsulinWidget.swift */,
+				C13DC36B2DFB5251008E7462 /* EventualBGWidget.swift */,
+				C13DC3692DFB4D69008E7462 /* DosingDecisionWidget.swift */,
 				14B1736F28AEDBF6006CCD7C /* SystemStatusWidget.swift */,
+				C13DC36D2DFB6470008E7462 /* DeepLinkWidget.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -3369,16 +3383,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13DC36C2DFB5257008E7462 /* EventualBGWidget.swift in Sources */,
 				14B1738128AEDC70006CCD7C /* StatusExtensionContext.swift in Sources */,
 				1455ACA92C66665D004F44F2 /* StateColorPalette.swift in Sources */,
 				14B1737628AEDC6C006CCD7C /* HKUnit.swift in Sources */,
 				14B1737728AEDC6C006CCD7C /* NSBundle.swift in Sources */,
+				C13DC3722DFBDCDC008E7462 /* ActiveCarbohydratesWidget.swift in Sources */,
 				84AA81D62A4A28AF000B658B /* WidgetBackground.swift in Sources */,
 				84AA81D82A4A2910000B658B /* StatusWidgetTimelimeEntry.swift in Sources */,
 				84AA81D32A4A27A3000B658B /* LoopWidgets.swift in Sources */,
 				14B1737828AEDC6C006CCD7C /* NSTimeInterval.swift in Sources */,
+				C13DC3702DFBD6D0008E7462 /* ActiveInsulinWidget.swift in Sources */,
 				1455ACB32C667C16004F44F2 /* Deeplink.swift in Sources */,
 				14B1737928AEDC6C006CCD7C /* NSUserDefaults+StatusExtension.swift in Sources */,
+				C13DC36E2DFB6474008E7462 /* DeepLinkWidget.swift in Sources */,
 				14B1737A28AEDC6C006CCD7C /* NumberFormatter.swift in Sources */,
 				1455ACAB2C666F9C004F44F2 /* EventualGlucoseView.swift in Sources */,
 				14B1737B28AEDC6C006CCD7C /* OSLog.swift in Sources */,
@@ -3395,7 +3413,7 @@
 				1455ACB02C667A1F004F44F2 /* DeeplinkView.swift in Sources */,
 				14B1737328AEDBF6006CCD7C /* SystemStatusWidget.swift in Sources */,
 				84AA81DD2A4A2999000B658B /* StatusWidgetTimelineProvider.swift in Sources */,
-				14B1737528AEDBF6006CCD7C /* LoopCircleView.swift in Sources */,
+				C13DC36A2DFB4D8E008E7462 /* DosingDecisionWidget.swift in Sources */,
 				8496F7312B5711C4003E672C /* ContentMargin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4651,7 +4669,6 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LOCALIZED_STRING_MACRO_NAMES = (
 					NSLocalizedString,
 					CFLocalizedString,
@@ -4761,7 +4778,6 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LOCALIZED_STRING_MACRO_NAMES = (
 					NSLocalizedString,
 					CFLocalizedString,
@@ -5197,7 +5213,6 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LOCALIZED_STRING_MACRO_NAMES = (
 					NSLocalizedString,
 					CFLocalizedString,

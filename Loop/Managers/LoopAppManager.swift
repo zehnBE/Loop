@@ -114,7 +114,6 @@ class LoopAppManager: NSObject {
     private var state: State = .initialize
 
     private let log = DiagnosticLog(category: "LoopAppManager")
-    private let widgetLog = DiagnosticLog(category: "LoopWidgets")
 
     private let automaticDosingStatus = AutomaticDosingStatus(automaticDosingEnabled: false, isAutomaticDosingAllowed: false)
 
@@ -519,8 +518,9 @@ class LoopAppManager: NSObject {
 
     private func loopCycleDidComplete() async {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.widgetLog.default("Refreshing widget. Reason: Loop completed")
-            WidgetCenter.shared.reloadAllTimelines()
+            Task {
+                await self.statusExtensionManager.refreshWidgets(reason: "loop() finished")
+            }
         }
     }
 
@@ -592,9 +592,10 @@ class LoopAppManager: NSObject {
         settingsManager?.didBecomeActive()
         deviceDataManager?.didBecomeActive()
         alertManager?.inferDeliveredLoopNotRunningNotifications()
-        
-        widgetLog.default("Refreshing widget. Reason: App didBecomeActive")
-        WidgetCenter.shared.reloadAllTimelines()
+
+        Task { @MainActor in
+            await statusExtensionManager?.refreshWidgets(reason: "App became active")
+        }
     }
 
     // MARK: - Remote Notification

@@ -47,12 +47,4 @@ extension NumberFormatter {
             unit
         )
     }
-
-    func decibleString(from decibles: Int?) -> String? {
-        if let decibles = decibles {
-            return string(from: Double(decibles), unit: NSLocalizedString("dB", comment: "The short unit display string for decibles"))
-        } else {
-            return nil
-        }
-    }
 }

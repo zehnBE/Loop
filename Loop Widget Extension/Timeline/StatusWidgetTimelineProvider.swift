@@ -30,21 +30,32 @@ class StatusWidgetTimelineProvider: TimelineProvider {
         store: cacheStore,
         expireAfter: localCacheDuration)
 
-    var glucoseStore: GlucoseStore!
-
-    init() {
-        Task {
-            glucoseStore = await GlucoseStore(
-                cacheStore: cacheStore,
-                provenanceIdentifier: HKSource.default().bundleIdentifier
-            )
-        }
-    }
+    var glucoseStore: GlucoseStore?
 
     func placeholder(in context: Context) -> StatusWidgetTimelimeEntry {
         log.default("%{public}@: context=%{public}@", #function, String(describing: context))
 
-        return StatusWidgetTimelimeEntry(date: Date(), contextUpdatedAt: Date(), lastLoopCompleted: nil, mostRecentGlucoseDataDate: nil, mostRecentPumpDataDate: nil, closeLoop: true, currentGlucose: nil, glucoseFetchedAt: Date(), delta: nil, unit: .milligramsPerDeciliter, sensor: nil, pumpHighlight: nil, netBasal: nil, eventualGlucose: nil, preMealPresetAllowed: true, preMealPresetActive: false, customPresetActive: false)
+        return StatusWidgetTimelimeEntry(
+            date: Date(),
+            contextUpdatedAt: Date(),
+            lastLoopCompleted: nil,
+            mostRecentGlucoseDataDate: nil,
+            mostRecentPumpDataDate: nil,
+            closeLoop: true,
+            currentGlucose: nil,
+            glucoseFetchedAt: Date(),
+            delta: nil,
+            unit: .milligramsPerDeciliter,
+            sensor: nil,
+            pumpHighlight: nil,
+            netBasal: nil,
+            eventualGlucose: nil,
+            preMealPresetAllowed: true,
+            preMealPresetActive: false,
+            customPresetActive: false,
+            activeInsulin: 0.1,
+            activeCarbs: 20
+        )
     }
 
     func getSnapshot(in context: Context, completion: @escaping (StatusWidgetTimelimeEntry) -> ()) {
@@ -103,8 +114,15 @@ class StatusWidgetTimelineProvider: TimelineProvider {
 
             var glucose: [StoredGlucoseSample] = []
 
+            if glucoseStore == nil {
+                glucoseStore = await GlucoseStore(
+                    cacheStore: cacheStore,
+                    provenanceIdentifier: HKSource.default().bundleIdentifier
+                )
+            }
+
             do {
-                glucose = try await glucoseStore.getGlucoseSamples(start: startDate)
+                glucose = try await glucoseStore!.getGlucoseSamples(start: startDate)
                 self.log.default("Fetched glucose: last = %{public}@, %{public}@", String(describing: glucose.last?.startDate), String(describing: glucose.last?.quantity))
             } catch {
                 self.log.error("Failed to fetch glucose after %{public}@", String(describing: startDate))
@@ -171,7 +189,9 @@ class StatusWidgetTimelineProvider: TimelineProvider {
                 eventualGlucose: eventualGlucose,
                 preMealPresetAllowed: preMealPresetAllowed,
                 preMealPresetActive: preMealPresetActive,
-                customPresetActive: customPresetActive
+                customPresetActive: customPresetActive,
+                activeInsulin: context.activeInsulin,
+                activeCarbs: context.carbsOnBoard
             )
 
             self.log.default("StatusWidgetTimelimeEntry = %{public}@", String(describing: entry))

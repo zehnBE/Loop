@@ -116,8 +116,6 @@ final class StatusTableViewController: LoopChartsTableViewController {
                     self?.log.debug("[reloadData] from notification with context %{public}@", String(describing: context))
                     await self?.reloadData(animated: true)
                 }
-
-                WidgetCenter.shared.reloadAllTimelines()
             },
             notificationCenter.addObserver(forName: .LoopRunning, object: nil, queue: nil) { _ in
                 Task { @MainActor [weak self] in

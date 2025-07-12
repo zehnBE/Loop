@@ -17,18 +17,10 @@ struct GlucoseView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack(spacing: 2) {
-                if !entry.glucoseIsStale,
-                   let glucoseQuantity = entry.currentGlucose?.quantity,
-                   let unit = entry.unit,
-                   let glucoseString = NumberFormatter.glucoseFormatter(for: unit).string(from: glucoseQuantity.doubleValue(for: unit)) {
-                    Text(glucoseString)
-                        .font(.system(size: 24, weight: .heavy, design: .default))
-                }
-                else {
-                    Text("---")
-                        .font(.system(size: 24, weight: .heavy, design: .default))
-                }
-                
+                Text(entry.formattedGlucose)
+                    .font(.system(size: 24, weight: .heavy, design: .default))
+                    .fixedSize()
+
                 if let trendImage = entry.sensor?.trendType?.image {
                     Image(uiImage: trendImage)
                         .renderingMode(.template)
