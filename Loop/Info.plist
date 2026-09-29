@@ -38,6 +38,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(URL_SCHEME_NAME)</string>
+				<string>carbcam-loop</string>
 			</array>
 		</dict>
 	</array>

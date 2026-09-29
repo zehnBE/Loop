@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import LoopKit
+import HealthKit
 
 enum Deeplink: String, CaseIterable {
     case carbEntry = "carb-entry"
@@ -32,6 +34,12 @@ class DeeplinkManager {
     }
     
     func handle(_ url: URL) -> Bool {
+        // CarbCam URL scheme - dispatched separately from standard Loop deeplinks
+        // because the carbcam-loop:// scheme is registered for this exact purpose.
+        if url.scheme == "carbcam-loop" {
+            return handleCarbCamURL(url)
+        }
+
         guard let rootViewController = rootViewController as? RootNavigationController, let deeplink = Deeplink(url: url) else {
             return false
         }
@@ -40,6 +48,37 @@ class DeeplinkManager {
         return true
     }
     
+    /// Handles `carbcam-loop://carbs?value=N&notes=...&source=...` from 10BE CarbCam.
+    /// Reuses Loop's existing NSUserActivity-based carb entry restoration path.
+    /// Loop's carb entry UI supports only carbs + foodType + absorptionTime;
+    /// fat/protein/fiber URL parameters are intentionally ignored.
+    private func handleCarbCamURL(_ url: URL) -> Bool {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              components.host == "carbs",
+              let items = components.queryItems,
+              let valueStr = items.first(where: { $0.name == "value" })?.value,
+              let value = Int(valueStr),
+              value >= 1, value <= 80
+        else { return false }
+
+        let notes = (items.first(where: { $0.name == "notes" })?.value ?? "")
+            .prefix(200)
+            .description
+
+        let entry = NewCarbEntry(
+            quantity: HKQuantity(unit: .gram(), doubleValue: Double(value)),
+            startDate: Date(),
+            foodType: notes.isEmpty ? nil : notes,
+            absorptionTime: nil
+        )
+
+        let activity = NSUserActivity.forNewCarbEntry()
+        activity.update(from: entry)
+
+        rootViewController?.restoreUserActivityState(activity)
+        return true
+    }
+
     func handle(_ deeplink: Deeplink) -> Bool {
         guard let rootViewController = rootViewController as? RootNavigationController else {
             return false
